@@ -3,6 +3,9 @@ var med; //medium circles
 var small; //smaller circles 
 var bright, med, dark, darkest; //different ranges of red for circles 
 var reds = []; //array with different reds in it 
+var count; //keeps track of how many cirlces are on the screen at one time 
+var y = 0; //height of top rect
+var u = windowHeight; //height of bottom rect 
 
 
 
@@ -27,6 +30,12 @@ function setup() {
 
 function draw() {
 	
+	// I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
+	count += 1;
+	if(count == 7){
+		blink();
+		count = 0;
+	}
 }
 
 class Circles{ //creates class 
@@ -42,4 +51,15 @@ class Circles{ //creates class
 	
 	function show(randX, randY){ //function that makes the circles appear 
 		noStroke(); //no stroke 
+		
+}
+
+function blink(){ //function that makes screen "blink" to clear up circles when count reaches 7
+	for(var x = 0; x < windowHeight/2; x++){
+		rect(0, y, windowWidth, y);
+		y++;
+		rect(0, u, windowWidth, u);
+		u--;
+	}
+	
 }
