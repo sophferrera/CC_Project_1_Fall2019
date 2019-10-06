@@ -1,48 +1,44 @@
+var small, medi, bigger, biggest; //circle sizes
+var bright, med, dark, darkest; //different ranges of red for circles 
+var reds = []; //array with different reds 
+var sizes = []; //array with different sizes
+var cCount; //keeps track of how many cirlces are on the screen at one time 
+var bCount; //keeps track of how many blinks have cycled through in the loop
+var y; //height of top rect
+var y2; // = displayHeight/2; //open blinked eye 
+var u; // = displayHeight; //height of bottom rect 
+var u2; // = displayHeight/2; //open blinked eye 
 
-Project #1
-by Sophia Ferrera
+
+
+function setup() {
+  /*bright = color('#FF1900'); //setting bright color
+  med = color('#9E1000'); //setting medium color
+  dark = color ('#690A00'); //setting darker color 
+  darkest = color('#380600'); //setting darkst color */
   
- 
+  createCanvas(windowWidth, windowHeight); //creates a canvas as big as the window 
+  
+  background('#000000'); //black background 
+  reds[0] = bright = color('#FF1900'); //spot 0 in array is bright
+  reds[1] = med = color('#9E1000'); //spot 1 in array is medium
+  reds[2] = dark = color ('#690A00'); //spot 2 in array is darker
+  reds[3] = darkest = color('#380600'); //spot 3 in array is darkest 
+  
+  sizes[0] = small;
+  sizes[1] = medi;
+  sizes [2] = bigger;
+  sizes[3] = biggest; 
+  
+  circles1 = new Circles(0, random(10), random(10), 10, 10); //new object called big 
 
-OpenProcessing
-
-Sophia Ferrera
-My Profile
-
-My Feed
-
-Edit Profile
-
-Edit Membership
-
-Sign Out
-
-Sketches
-Explore Sketches
-
-Project #1
-Sketch #4 Diamonds
-Johnny & Sophia
-View All
-
-Classes
-Explore Classes
-
-Creative Coding FA 2019 Bennett
-View All
-
-Search
-/ Recent s / Browse Allphysics game visualization particles color evolution circle lines
- Plus+ Priority Support Frequently Asked Questions FAQ Follow OpenProcessing on Twitter TwitterCredits Community Guidelines Terms of Service Privacy Policy
-
-show
   
 }
-​
+
 function draw() {
   
   // I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
-  big.show();
+  
   cCount += 1; //adds 1 to count every time a new circle is drawn
   if(cCount == 7){ //if there are 7 circles on the screen at one time
     blink(); //blink 
@@ -53,7 +49,7 @@ function draw() {
     }
   }
 }
-​
+
 class Circles{ //creates class 
   
   constructors(c, xCirc, yCirc, size, alph){ //variables in class 
@@ -63,7 +59,7 @@ class Circles{ //creates class
     this.siz = size; //setting siz to size 
     this.fade = alph; //setting fade to alph 
   }
-​
+
   
    show(randX, randY){ //function that makes the circles appear 
     noStroke(); //no stroke 
@@ -71,7 +67,7 @@ class Circles{ //creates class
     //clears circles after 7 are drawn
     
   }
-​
+
    blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
     color('#371500');
     noStroke();
@@ -89,15 +85,3 @@ class Circles{ //creates class
     }
   }
 }
-Sketch
-Files
-Editor
-Engine
-Tutorial Mode (Beta) 🎉 Write step-by-step tutorials. Learn more
-Show FrameAdds a white frame around the sketch.
-Infinite Loop ProtectionPrevents loops that may freeze the sketch.
-LibrariesShow All
-p5.dom 
-p5.sound 
-+ Add custom library
-
