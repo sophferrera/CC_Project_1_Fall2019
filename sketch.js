@@ -30,14 +30,28 @@ function setup() {
   sizes [2] = bigger;
   sizes[3] = biggest; 
   
-  circles1 = new Circles(0, random(10), random(10), 10, 10); //new object called big 
-
-  
+  circles1 = new Circles(0, random(10), random(10), 10, 10); //new object called big  
 }
 
+
+function spin(){ 
+  //one red ellipse seems stationary in the center of the display
+  //the more time passes, the faster the circle seems to be moving from the center across the screen
+  background();
+  noStroke();
+  fill('#FF1900');
+  for(var x = 0; x < 100; x++){
+    ellipse(displayWidth/2, displayHeight/2, 30, 30);
+    
+    
+  }
+}
+
+
 function draw() {
-  
-  // I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
+  spin();
+  //if the circle reaches max speed, stop spin and go to draw()
+  //in draw(), I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
   
   cCount += 1; //adds 1 to count every time a new circle is drawn
   if(cCount == 7){ //if there are 7 circles on the screen at one time
@@ -56,30 +70,33 @@ class Circles{ //creates class
     this.red = c; //setting red equal to c
     this.xC = xCirc; //setting xC equal to xCirc
     this.yC = yCirc; //setting yC equal to yCirc 
-    this.siz = size; //setting siz to size 
+  //  this.siz = size; //setting siz to size 
     this.fade = alph; //setting fade to alph 
   }
 
   
    show(randX, randY){ //function that makes the circles appear 
     noStroke(); //no stroke 
+    fill(get.reds[random]);
+    for(var x = 0; x < 8; x++)
+      ellipse(this.xC, this.yC, random(10), random(10), fade);
     //draws circle with random shade of red in a randon location 
-    //clears circles after 7 are drawn
+    
     
   }
 
    blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
     color('#371500');
     noStroke();
-    for(var x = 0; x <= windowHeight/2; x++){
-      rect(0, y = 0, windowWidth, y = 0);
+    for(var x = 0; x <= displayHeight/2; x++){
+      rect(0, y = 0, displayWidth, y = 0);
       y++;
-      rect(0, u = displayHeight, windowWidth, u = displayHeight);
+      rect(0, u = displayHeight, displayWidth, u = displayHeight);
       u--;
       if((y == windowHeight/2) && (u == windowHeight/2)){
-        rect(0, y2 = displayHeight/2, windowWidth, y2 = displayHeight/2);
+        rect(0, y2 = displayHeight/2, displayWidth, y2 = displayHeight/2);
         y--;
-        rect(0, u2 = displayHeight/2, windowWidth, u2 = displayHeight/2);
+        rect(0, u2 = displayHeight/2, displayWidth, u2 = displayHeight/2);
         u++;
       }
     }
