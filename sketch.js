@@ -8,6 +8,8 @@ var y; //height of top rect
 var y2; // = displayHeight/2; //open blinked eye 
 var u; // = displayHeight; //height of bottom rect 
 var u2; // = displayHeight/2; //open blinked eye 
+var xMove; //for spin func
+var inc; //increments spin speed
 
 
 
@@ -25,7 +27,8 @@ function setup() {
 	reds[2] = dark = color ('#690A00'); //spot 2 in array is darker
 	reds[3] = darkest = color('#380600'); //spot 3 in array is darkest 
 	
-	//new Circles() = circles[0];
+	for(var x = 0; x < 8, x++){
+			new Circles() = circles[x];
 }
 
 
@@ -45,9 +48,12 @@ function spin(){
 	noStroke();
 	fill('#FF1900');
 	for(var x = 0; x < 100; x++){
-		ellipse(displayWidth/2, displayHeight/2, 30, 30);
-		
-		
+		ellipse(xMove = displayWidth/2, displayHeight/2, 30, 30);
+		xMove += (inc = 0.1);
+		inc += 0.1;
+		if(xMove > displayWidth){
+			xMove = 0;
+		}
 	}
 }
 
@@ -62,26 +68,18 @@ function spin(){
 
 	
 	 show(){ //function that makes the circles appear 
-		let randCirc = new Circle(/*random red from array, random(0, width), random (0, height), alpha(random)*/);
-
-		for(var x = 0; x < 8, x++){
-			
-		}
+		//let randCirc = new Circle(/*random red from array, random(0, width), random (0, height), alpha(random)*/);
 		cCount += 1; //adds 1 to count every time a new circle is drawn
-		if(cCount == 7){ //if there are 7 circles on the screen at one time
-			blink(); //blink 
-			cCount = 0; //circle count is zero
-			bCount += 1; //blink count adds 1 
-			if(bCount == 10){ //if blink count is 10 
-				noLoop(); //stop the loop 
+			if(cCount == 7){ //if there are 7 circles on the screen at one time
+				blink(); //blink 
+				cCount = 0; //circle count is zero
+				bCount += 1; //blink count adds 1 
+				if(bCount == 10){ //if blink count is 10 
+					noLoop(); //stop the loop 
+			}
 		}
 	}
-		noStroke(); //no stroke 
-		
-		//	fill(get.reds[random]);
-		
-		
-	}
+
 
 	 blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
 		color('#371500');
