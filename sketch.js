@@ -65,29 +65,32 @@ function draw() {
 function spin(){ 	
  	//the more time passes, the faster the circle seems to be moving from the center across the screen
 	//spinning effect 
-	
-	for(var x = 0; x < windowWidth; x++){
+	for(var x = 0; x < 75; x++){
 		background(0);
-		noStroke();
-		fill('#FF1900');
-		ellipse(spinX, windowHeight/2, 60, 60);
-		fill('#FFF435');
-		ellipse(spinX, windowHeight/2, 45, 45);
-		fill('#FF1900');
-		ellipse(spinX, windowHeight/2, 25, 25);
-		fill('#FFF435');
-		ellipse(spinX, windowHeight/2, 10, 10);
-		spinX += spinXinc;
+		target();
 		if(spinX > windowWidth){
-			spinX = 0;
+			spinX = -500;
 			spinXinc = spinXinc * 1.5;
-		if(spinXinc > 1){
+		if(spinXinc > 5){
 			spinXinc = 0;
-			spinX = windowWidth/2;
+			spinX = -100
 			noLoop();
 			}
 		}
 	}
+}
+
+function target(){
+	noStroke();
+	fill('#FF1900');
+	ellipse(spinX, windowHeight/2, 60, 60);		
+	fill('#FFF435');
+	ellipse(spinX, windowHeight/2, 45, 45);
+	fill('#FF1900');
+	ellipse(spinX, windowHeight/2, 25, 25);
+	fill('#FFF435');
+	ellipse(spinX, windowHeight/2, 10, 10);
+	spinX += spinXinc;
 }
 
 function createCircle() { //creates circles, does not display them 
@@ -115,7 +118,6 @@ function createCircle() { //creates circles, does not display them
 				}
 			}
 		} */
-
 class Circles{ //creates class 
 	
 	// constructor(c, xCirc, yCirc, /*size_,*/ alph){ //variables in class 
@@ -142,6 +144,7 @@ class Circles{ //creates class
 	 }
 
 }
+
 
 				
 				
