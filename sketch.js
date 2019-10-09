@@ -10,6 +10,8 @@ var u; // = displayHeight; //height of bottom rect
 var u2; // = displayHeight/2; //open blinked eye 
 var xMove; //for spin func
 var inc; //increments spin speed
+var spinX = 0;
+var spinXinc = 0.04;
 
 
 function setup() {
@@ -34,17 +36,21 @@ function setup() {
 
 
 function draw() {
-	if (frameCount % 30 == 0) {
+	
+	spin();
+	if(spinXinc > 1){ //if the circle reaches max speed, stop spin and go to draw()
+		if (frameCount % 5 == 0) {
+		noStroke();
 		createCircle();
 	}
-	// spin();
-	//if the circle reaches max speed, stop spin and go to draw()
-	//in draw(), I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
-	for(var i = 0; i < circles.length; i++){
+	for(var i = 0; i < circles.length; i++){ 	//in draw(), I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
 		circles[i].show();
+		cCount += 1; //adds 1 to count every time a new circle is drawn
 	}
-		// cCount += 1; //adds 1 to count every time a new circle is drawn
-			if(cCount == 7){ //if there are 7 circles on the screen at one time
+	
+	
+		 
+			if(cCount == 20){ //if there are 7 circles on the screen at one time
 				blink(); //blink 
 				cCount = 0; //circle count is zero
 				bCount += 1; //blink count adds 1 
@@ -69,6 +75,50 @@ function draw() {
 // 		}
 // 	}
 // }
+
+
+function spin(){
+	
+	for(var x = 0; x < windowWidth; x++){
+		background(0);
+		ellipse(spinX, windowHeight/2, 30, 30);
+		spinX += spinXinc;
+		if(spinX > windowWidth){
+			spinX = 0;
+			spinXinc = spinXinc * 1.5;
+		if(spinXinc > 1){
+			spinXinc = 0;
+			spinX = windowWidth/2;
+			noLoop();
+			}
+		}
+	}
+}
+
+
+function createCircle() {
+	let aCircle = new Circles(reds[int(random(0,4))]);
+	circles.push(aCircle);
+	cCount += 1; //adds 1 to count every time a new circle is drawn
+}
+
+
+	/*	function blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
+			color('#371500');
+			noStroke();
+			for(var x = 0; x <= displayHeight/2; x++){
+				rect(0, y = 0, displayWidth, y = 0);
+				y++;
+				rect(0, u = displayHeight, displayWidth, u = displayHeight);
+				u--;
+				if((y == windowHeight/2) && (u == windowHeight/2)){
+					rect(0, y2 = displayHeight/2, displayWidth, y2 = displayHeight/2);
+					y--;
+					rect(0, u2 = displayHeight/2, displayWidth, u2 = displayHeight/2);
+					u++;
+				}
+			}
+		} */
 class Circles{ //creates class 
 	
 	// constructor(c, xCirc, yCirc, /*size_,*/ alph){ //variables in class 
@@ -82,9 +132,9 @@ class Circles{ //creates class
 		this.c = c_; //setting red equal to c
 		this.xCirc = random(0, windowWidth); //setting xC equal to xCirc
 		this.yCirc = random(0, windowHeight); //setting yC equal to yCirc 
-		this.size = int(random(30, 50));
+		this.size = int(random(30, 100));
 		this.alph = int(random(0, 256)); //setting fade to alph
-		this.c.setAlpha(this.alph);
+		this.c.setAlpha(this.alph); //this makes a lot more sense after last class 
 	}
 
 
@@ -94,33 +144,10 @@ class Circles{ //creates class
 		fill(this.c);
 		ellipse(this.xCirc, this.yCirc, this.size, this.size);
 	 }
-	/*
-		 blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
-		color('#371500');
-		noStroke();
-		for(var x = 0; x <= displayHeight/2; x++){
-			rect(0, y = 0, displayWidth, y = 0);
-			y++;
-			rect(0, u = displayHeight, displayWidth, u = displayHeight);
-			u--;
-			if((y == windowHeight/2) && (u == windowHeight/2)){
-				rect(0, y2 = displayHeight/2, displayWidth, y2 = displayHeight/2);
-				y--;
-		 		rect(0, u2 = displayHeight/2, displayWidth, u2 = displayHeight/2);
-		 		u++;
-			}
-		}
-	} */
+
 }
 
 
-function createCircle() {
-	let aCircle = new Circles(reds[int(random(0,4))]);
-	circles.push(aCircle);
-	cCount += 1; //adds 1 to count every time a new circle is drawn
-}
-
-// let hi = new Circles(reds[int(random(0,4))], 255);
 				
 				
 
