@@ -1,6 +1,6 @@
 // var bright, med, dark, darkest; //different ranges of red for circles 
 var reds = []; //array with different reds 
-//var sizes = []; //array with different sizes
+var yells = [];
 var circles = [];
 var cCount; //keeps track of how many cirlces are on the screen at one time 
 var bCount; //keeps track of how many blinks have cycled through in the loop
@@ -12,6 +12,7 @@ var xMove; //for spin func
 var inc; //increments spin speed
 var spinX = 0;
 var spinXinc = 0.04;
+
 
 
 function setup() {
@@ -27,19 +28,22 @@ function setup() {
 	reds[1] = color('#9E1000'); //spot 1 in array is medium
 	reds[2] = color ('#690A00'); //spot 2 in array is darker
 	reds[3] = color('#380600'); //spot 3 in array is darkest
+	
+	yells[0] = color('#FFF701'); //bright yellow 
+	yells[1] = color('#FFF435'); // middle yellow 
+	yells[2] = color('#D1CA00'); //deeper yellow 
+	yells[3] = color('#A19B00'); //deepest yellow
+	
 		
-	// for(var x = 0; x < 8; x++){
-	// 		circles[x] = new Circles();
-	// }
-}
+	}
+
 
 
 
 function draw() {
 	
 	spin();
-	if(spinXinc > 1){ //if the circle reaches max speed, stop spin and go to draw()
-		if (frameCount % 5 == 0) {
+		if (frameCount % 10 == 0) {
 		noStroke();
 		createCircle();
 	}
@@ -47,10 +51,8 @@ function draw() {
 		circles[i].show();
 		cCount += 1; //adds 1 to count every time a new circle is drawn
 	}
-	
-	
-		 
-			if(cCount == 20){ //if there are 7 circles on the screen at one time
+
+				if(cCount == 25){ //if there are 25 circles on the screen at one time
 				blink(); //blink 
 				cCount = 0; //circle count is zero
 				bCount += 1; //blink count adds 1 
@@ -58,30 +60,23 @@ function draw() {
 					noLoop(); //stop the loop 
 				}
 			}
-}
+		}
 
-// function spin(){ 
-// 	//one red ellipse seems stationary in the center of the display
-// 	//the more time passes, the faster the circle seems to be moving from the center across the screen
-// 	background();
-// 	noStroke();
-// 	fill('#FF1900');
-// 	for(var x = 0; x < 100; x++){
-// 		ellipse(xMove = displayWidth/2, displayHeight/2, 30, 30);
-// 		xMove += (inc = 0.1);
-// 		inc += 0.1;
-// 		if(xMove > displayWidth){
-// 			xMove = 0;
-// 		}
-// 	}
-// }
-
-
-function spin(){
+function spin(){ 	
+ 	//the more time passes, the faster the circle seems to be moving from the center across the screen
+	//spinning effect 
 	
 	for(var x = 0; x < windowWidth; x++){
 		background(0);
-		ellipse(spinX, windowHeight/2, 30, 30);
+		noStroke();
+		fill('#FF1900');
+		ellipse(spinX, windowHeight/2, 60, 60);
+		fill('#FFF435');
+		ellipse(spinX, windowHeight/2, 45, 45);
+		fill('#FF1900');
+		ellipse(spinX, windowHeight/2, 25, 25);
+		fill('#FFF435');
+		ellipse(spinX, windowHeight/2, 10, 10);
 		spinX += spinXinc;
 		if(spinX > windowWidth){
 			spinX = 0;
@@ -95,10 +90,11 @@ function spin(){
 	}
 }
 
-
-function createCircle() {
+function createCircle() { //creates circles, does not display them 
 	let aCircle = new Circles(reds[int(random(0,4))]);
+	let bCircle = new Circles(yells[int(random(0,4))]);
 	circles.push(aCircle);
+	circles.push(bCircle);
 	cCount += 1; //adds 1 to count every time a new circle is drawn
 }
 
@@ -119,6 +115,7 @@ function createCircle() {
 				}
 			}
 		} */
+
 class Circles{ //creates class 
 	
 	// constructor(c, xCirc, yCirc, /*size_,*/ alph){ //variables in class 
@@ -133,20 +130,18 @@ class Circles{ //creates class
 		this.xCirc = random(0, windowWidth); //setting xC equal to xCirc
 		this.yCirc = random(0, windowHeight); //setting yC equal to yCirc 
 		this.size = int(random(30, 100));
-		this.alph = int(random(0, 256)); //setting fade to alph
+		this.alph = int(random(0, 75)); //setting fade to alph
 		this.c.setAlpha(this.alph); //this makes a lot more sense after last class 
 	}
 
 
 	
 	 show(){ //function that makes the circles appear 
-		//let randCirc = new Circle(/*random red from array, random(0, width), random (0, height), alpha(random)*/);
 		fill(this.c);
 		ellipse(this.xCirc, this.yCirc, this.size, this.size);
 	 }
 
 }
-
 
 				
 				
