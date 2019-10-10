@@ -1,26 +1,18 @@
-// var bright, med, dark, darkest; //different ranges of red for circles 
 var reds = []; //array with different reds 
-var yells = [];
-var circles = [];
+var yells = []; //array of shades of yellow
+var circles = []; //array of Circle objects 
 var cCount; //keeps track of how many cirlces are on the screen at one time 
 var bCount; //keeps track of how many blinks have cycled through in the loop
-var y; //height of top rect
-var y2; // = displayHeight/2; //open blinked eye 
-var u; // = displayHeight; //height of bottom rect 
-var u2; // = displayHeight/2; //open blinked eye 
+var spinCount = 0; //keeps track of how many times the target has spun 
+var y = 0; //height of top rect
+var y2 = 800;
 var xMove; //for spin func
 var inc; //increments spin speed
-var spinX = 0;
-var spinXinc = 0.04;
-
-
+var spinX = 0; //x location where target starts 
+var spinXinc = 0.04; //exponential increment of the speed
 
 function setup() {
-	/*bright = color('#FF1900'); //setting bright color
-	med = color('#9E1000'); //setting medium color
-	dark = color ('#690A00'); //setting darker color 
-	darkest = color('#380600'); //setting darkst color */
-	
+
 	createCanvas(windowWidth, windowHeight);//creates a canvas as big as the window 
 	
 	background('#000000'); //black background 
@@ -33,52 +25,48 @@ function setup() {
 	yells[1] = color('#FFF435'); // middle yellow 
 	yells[2] = color('#D1CA00'); //deeper yellow 
 	yells[3] = color('#A19B00'); //deepest yellow
-	
-		
 	}
-
-
-
 
 function draw() {
 	
-	spin();
-		if (frameCount % 10 == 0) {
+	spin(); //spins around 
+	if(spinCount > 2){ //if spinCount 
+		if (frameCount % 10 == 0) { //if the frame /10 is zero, add another circle 
 		noStroke();
 		createCircle();
-	}
-	for(var i = 0; i < circles.length; i++){ 	//in draw(), I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
-		circles[i].show();
-		cCount += 1; //adds 1 to count every time a new circle is drawn
-	}
-
-				if(cCount == 25){ //if there are 25 circles on the screen at one time
-				blink(); //blink 
-				cCount = 0; //circle count is zero
-				bCount += 1; //blink count adds 1 
-				if(bCount == 10){ //if blink count is 10 
-					noLoop(); //stop the loop 
-				}
-			}
+		for(var i = 0; i < circles.length; i++){ 	//in draw(), I want to make circles of varying opacity and shade appear and disappeat at random points on the screen
+			circles[i].show(); //show the array of circles as the loop makes them appear 
+		//	cCount += 1; //adds 1 to count every time a new circle is drawn
 		}
+	}
+				// if(cCount == 25){ //if there are 25 circles on the screen at one time
+				// blink(); //blink 
+				// cCount = 0; //circle count is zero
+				// bCount += 1; //blink count adds 1 
+				// if(bCount == 10){ //if blink count is 10 
+				// 	noLoop(); //stop the loop 
+				//}
+			//}
+		}
+}
 
 function spin(){ 	
  	//the more time passes, the faster the circle seems to be moving from the center across the screen
 	//spinning effect 
-	for(var x = 0; x < 75; x++){
-		background(0);
-		target();
-		if(spinX > windowWidth){
-			spinX = -500;
-			spinXinc = spinXinc * 1.5;
-		if(spinXinc > 5){
-			spinXinc = 0;
-			spinX = -100
-			noLoop();
-			}
+	for(var x = 0; x < 75; x++){ 
+		background(0); //resetting background 
+		target(); //draw a target 
+		if(spinX > windowWidth){ //if the target is past width of the window 
+			spinX = -500; //make the x -500 
+			spinXinc = spinXinc * 1.5; //increment the speed by *1.5 
+		if(spinXinc > 5){ //if the speed gets higher than 5 
+			spinXinc = 0; //speed is zero 
+			spinX = -100 //location of the target is off screen 
+					}
+				spinCount ++; //add one to the spin count 
+				}
+			}	
 		}
-	}
-}
 
 function target(){
 	noStroke();
@@ -102,22 +90,33 @@ function createCircle() { //creates circles, does not display them
 }
 
 
-	/*	function blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
-			color('#371500');
+	/*
+		function blink(){ //function that makes screen "blink" to clear up circles when cCount reaches 7
 			noStroke();
-			for(var x = 0; x <= displayHeight/2; x++){
-				rect(0, y = 0, displayWidth, y = 0);
-				y++;
-				rect(0, u = displayHeight, displayWidth, u = displayHeight);
-				u--;
-				if((y == windowHeight/2) && (u == windowHeight/2)){
-					rect(0, y2 = displayHeight/2, displayWidth, y2 = displayHeight/2);
-					y--;
-					rect(0, u2 = displayHeight/2, displayWidth, u2 = displayHeight/2);
-					u++;
+			fill('#371500');
+			if(frameCount % 2 == 0){
+				for(var x = 0; x <= 2; x++){
+					rect(0, y, windowWidth, y);
+					y+= 5; 
+					if( y > 400){
+						background(0);
+						for(var y = 0; y <= 3; y++){
+						rect(0, y2, windowWidth, y2)
+						y2 -= 7
+					 }
 				}
 			}
-		} */
+		}
+	}
+		*/
+
+//My adjective: dizzy 
+				
+				
+
+
+
+
 class Circles{ //creates class 
 	
 	// constructor(c, xCirc, yCirc, /*size_,*/ alph){ //variables in class 
